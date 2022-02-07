@@ -49,12 +49,12 @@ vec4 dither1(vec4 c)
 
 vec4 dither2(vec4 c)
 {
-	return downmix(clamp(c * vec4(vec3(2.0), 1.0) - dither1(c), vec4(0.0, 0.0, 0.0, 0.0), vec4(1.0, 1.0, 1.0, 1.0)));
+	return downmix(clamp(c * vec4(vec3(3.0), 1.0) - dither1(c) - downmix(c), vec4(0.0, 0.0, 0.0, 0.0), vec4(1.0, 1.0, 1.0, 1.0)));
 }
 
 vec4 dither3(vec4 c)
 {
-	return downmix(clamp(c * vec4(vec3(2.0), 1.0) - dither2(c), vec4(0.0, 0.0, 0.0, 0.0), vec4(1.0, 1.0, 1.0, 1.0)));
+	return downmix(clamp(c * vec4(vec3(4.0), 1.0) - dither2(c) - dither1(c) - downmix(c), vec4(0.0, 0.0, 0.0, 0.0), vec4(1.0, 1.0, 1.0, 1.0)));
 }
 
 float brightness(vec3 c)
