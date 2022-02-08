@@ -36,7 +36,15 @@ OptionValue "PalModes"
 	4, "Blended"
 }
 
+OptionValue "PalSets"
+{
+	0, "Game-Specific"
+	1, "EGA 16-Color"
+	2, "EGA 64-Color"
+}
+
 AddOptionMenu VideoOptions
 {
 	Option "Palettizing Mode", pal_mode, "PalModes"
+	Option "Palette Set", pal_set, "PalSets"
 }

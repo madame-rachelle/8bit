@@ -32,7 +32,9 @@ hardwareshader postprocess screen
 	Name "8bit"
 	Shader "8bit.glsl" 330
 	Texture tclut "TCLUT8"
+	Texture egalut "egapal"
 	cvar_uniform int c_mode pal_mode 4
+	cvar_uniform int c_set pal_set 0
 	cvar_uniform float c_mixer c_mixer 0.5
 	Enabled
 }

@@ -27,7 +27,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 
-vec4 downmix(vec4 c)
+vec4 paldownmix(vec4 c)
 {
 	float cr = floor(c.r * 255.0);
 	float cg = floor(c.g * 255.0);
@@ -40,6 +40,44 @@ vec4 downmix(vec4 c)
 	float tx = (cx + .5) / 4096.0;
 	float ty = (cy + .5) / 4096.0;
 	return texture(tclut, vec2(tx, ty));
+}
+
+vec4 egadownmix(vec4 c)
+{
+	float fdiff = 3.0;
+	float fattr = 0;
+	for (int i = 0; i < 16; i++)
+	{
+		vec3 lu = abs(pow(vec3(texture(egalut, vec2((i + 0.5) / 16, 0.5))), vec3(2.2)) - pow(vec3(c), vec3(2.2)));
+		float diff = lu.r + lu.g + lu.b;
+		if (fdiff > diff)
+		{
+			fdiff = diff;
+			fattr = float(i);
+		}
+	}
+	return texture(egalut, vec2((fattr + 0.5) / 16.0, 0.5));
+}
+
+vec4 hiegadownmix(vec4 c)
+{
+	vec3 h = vec3(c);
+	h = floor(h * 255.0 / 256.0 * 4.0) / 3.0;
+	return vec4(h, c.a);
+}
+
+vec4 downmix(vec4 c)
+{
+	switch (c_set)
+	{
+	default:
+	case 0:
+		return paldownmix(c);
+	case 1:
+		return egadownmix(c);
+	case 2:
+		return hiegadownmix(c);
+	}
 }
 
 vec4 dither1(vec4 c)
