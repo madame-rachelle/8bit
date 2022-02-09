@@ -26,6 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+// Lookup tables for Windows and Macintosh sourced from this wikipedia page:
+// https://en.wikipedia.org/w/index.php?title=List_of_software_palettes&oldid=1053490836
 
 hardwareshader postprocess screen
 {
@@ -33,8 +35,11 @@ hardwareshader postprocess screen
 	Shader "8bit.glsl" 330
 	Texture tclut "TCLUT8"
 	Texture egalut "egapal"
-	cvar_uniform int c_mode pal_mode 4
+	Texture maclut "macpal"
+	Texture winlut "winpal"
+	cvar_uniform int c_mode pal_mode 3
 	cvar_uniform int c_set pal_set 0
-	cvar_uniform float c_mixer c_mixer 0.5
+	cvar_uniform int c_sqsize pal_sqsize 2
+	cvar_uniform float c_bias pal_bias 0.9
 	Enabled
 }
